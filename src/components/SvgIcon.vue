@@ -6,7 +6,14 @@
       </svg>
     </template>
     <template v-else>
-      <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" @click="handleClick" />
+      <Icon
+        v-if="icon"
+        :icon="icon"
+        :width="width"
+        :height="height"
+        v-bind="bindAttrs"
+        @click="handleClick"
+      />
     </template>
   </div>
 </template>

@@ -56,25 +56,28 @@ function notify() {
 
     <div class="grid">
       <div v-for="(c, idx) in cards" :key="idx" class="cell" :class="c.variant">
-        <div class="icon-wrap" :class="c.variant">
-          <svg-icon v-if="c.icon === 'target'" icon="mdi:bullseye-arrow" width="18" height="18" class="icon-fg" />
-          <svg-icon v-else icon="mdi:gavel" width="18" height="18" class="icon-fg" />
-        </div>
-        <div class="body">
-          <div class="cell-title">{{ c.title }}</div>
-          <div v-if="c.variant === 'blue'" class="metrics blue-metrics">
-            <div class="blue-metric-row">
-              <div v-for="(m, mi) in c.metrics" :key="mi" class="metric-cell">
-                <span class="muted">{{ m.label }}:</span>
-                <span class="strong">{{ m.valueText }}</span>
-              </div>
-            </div>
+        <div class="cell-top">
+          <div class="icon-wrap" :class="c.variant">
+            <svg-icon v-if="c.icon === 'target'" icon="mdi:bullseye-arrow" width="14" height="14" class="icon-fg" />
+            <svg-icon v-else icon="mdi:gavel" width="14" height="14" class="icon-fg" />
           </div>
-          <div v-else class="metrics purple-metrics">
-            <div v-for="(m, mi) in c.metrics" :key="mi" class="metric-row split">
+          <div class="cell-title">{{ c.title }}</div>
+        </div>
+        <div class="metrics-row">
+          <div
+            v-for="(m, mi) in c.metrics"
+            :key="mi"
+            class="metric-side"
+            :class="{ 'metric-side--end': mi === 1 }"
+          >
+            <template v-if="c.variant === 'blue'">
+              <span class="muted">{{ m.label }}:</span>
               <span class="strong">{{ m.valueText }}</span>
-              <TrendYoyText v-if="m.yoy" class="yoy-inline" :percent="m.yoy.yoyPercent" />
-            </div>
+            </template>
+            <template v-else>
+              <span class="strong">{{ m.valueText }}</span>
+              <TrendYoyText v-if="m.yoy" :percent="m.yoy.yoyPercent" />
+            </template>
           </div>
         </div>
       </div>
@@ -120,12 +123,17 @@ function notify() {
 }
 .cell {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
   padding: 20px 20px 22px;
   min-height: 120px;
   border-right: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;
   background: #fff;
+}
+.cell-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 .cell:nth-child(3n) {
   border-right: none;
@@ -135,8 +143,8 @@ function notify() {
 }
 .icon-wrap {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -149,36 +157,37 @@ function notify() {
   background: #722ed1;
 }
 .icon-fg {
+  display: block;
   color: #fff;
-}
-.body {
-  flex: 1;
-  min-width: 0;
+  line-height: 0;
 }
 .cell-title {
+  flex: 1;
+  min-width: 0;
   font-size: 14px;
   font-weight: 600;
   color: #262626;
-  margin-bottom: 12px;
   line-height: 1.35;
 }
-.metrics {
+.metrics-row {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.blue-metric-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-left: 48px;
   font-size: 13px;
-  align-items: baseline;
 }
-.metric-cell {
+.metric-side {
   display: flex;
-  gap: 4px;
-  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
   min-width: 0;
+}
+.metric-side--end {
+  justify-content: flex-end;
+  text-align: right;
 }
 .muted {
   color: #8c8c8c;
@@ -186,16 +195,6 @@ function notify() {
 .strong {
   color: #262626;
   font-weight: 600;
-}
-.purple-metrics .split {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.yoy-inline {
-  flex-shrink: 0;
 }
 @media (max-width: 1100px) {
   .grid {

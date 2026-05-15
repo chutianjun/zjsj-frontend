@@ -117,13 +117,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="pa-page min-h-full bg-[#f0f2f5] pb-6">
-    <div class="mx-auto max-w-[1680px] px-5 pt-5">
-      <div class="mb-4 flex items-center justify-between gap-3 rounded px-1 py-1">
+  <div class="pa-page min-h-full pb-6">
+    <div class="pa-shell">
+      <header class="pa-header">
         <h1 class="m-0 text-lg font-bold text-[#262626]">项目信息分析看板</h1>
         <el-button type="primary" link :loading="loading" @click="loadAll">刷新</el-button>
-      </div>
+      </header>
 
+      <div class="pa-body pt-4">
       <el-alert v-if="loadError" type="error" :closable="false" :title="loadError" show-icon class="mb-4" />
 
       <div v-loading="loading" class="flex flex-col gap-4">
@@ -155,6 +156,7 @@ onMounted(() => {
         />
         <ModuleGuangdongGridTable :rows="gdGridRows" @filter-change="() => loadAll()" />
       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -162,5 +164,23 @@ onMounted(() => {
 <style scoped>
 .pa-page {
   min-height: calc(100vh - 60px);
+  background: #f0f2f5;
+}
+.pa-shell {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.pa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+.pa-body {
+  width: 100%;
 }
 </style>
