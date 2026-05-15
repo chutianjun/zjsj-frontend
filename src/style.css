@@ -9,3 +9,21 @@
 body {
   margin: 0;
 }
+
+/* 分页：中文文案由 Element locale 提供；页码格增加边框以贴近设计稿 */
+.el-pagination .el-pager li {
+  min-width: 32px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  margin: 0 3px;
+  background: #fff;
+}
+.el-pagination .el-pager li.is-active {
+  border-color: var(--el-color-primary);
+}
+.el-pagination .btn-prev,
+.el-pagination .btn-next {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background: #fff;
+}

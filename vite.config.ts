@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import UnoCSS from 'unocss/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineConfig(({ mode }) => {
@@ -10,6 +11,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      UnoCSS(),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/svg-icon')],
         symbolId: `${localIconPrefix}-[dir]-[name]`,
