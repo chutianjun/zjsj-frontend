@@ -2,7 +2,7 @@
   "name": "cscec4-frontend",
   "private": true,
   "version": "0.0.1",
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@11.1.2",
   "type": "module",
   "engines": {
     "node": ">=22.12.0 <23",
