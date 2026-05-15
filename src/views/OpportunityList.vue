@@ -45,7 +45,12 @@ onMounted(() => {
     <template #header>
       <div class="card-header">
         <span>项目商机（演示列表）</span>
-        <el-button type="primary" link :loading="loading" @click="load">刷新</el-button>
+        <el-button type="primary" link :loading="loading" @click="load">
+          <span class="refresh-btn-inner">
+            <svg-icon local-icon="arrow-blue" class="refresh-icon" />
+            刷新
+          </span>
+        </el-button>
       </div>
     </template>
 
@@ -89,6 +94,18 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.refresh-btn-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.refresh-icon {
+  font-size: 18px;
+  display: inline-flex;
+  line-height: 0;
 }
 
 .pager-wrap {
