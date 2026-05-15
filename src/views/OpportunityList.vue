@@ -5,12 +5,20 @@ import { fetchOpportunities, type OpportunityRow } from '../api/opportunity'
 const loading = ref(false)
 const rows = ref<OpportunityRow[]>([])
 const errorMessage = ref<string | null>(null)
+const total = ref(0)
+const page = ref(1)
+const pageSize = ref(10)
 
 async function load() {
   loading.value = true
   errorMessage.value = null
   try {
-    rows.value = await fetchOpportunities()
+    const data = await fetchOpportunities({
+      page: page.value,
+      pageSize: pageSize.value,
+    })
+    rows.value = data.items
+    total.value = data.total
   } catch (e) {
     errorMessage.value = e instanceof Error ? e.message : '加载失败'
   } finally {
@@ -18,7 +26,18 @@ async function load() {
   }
 }
 
-onMounted(load)
+function handleCurrentChange() {
+  void load()
+}
+
+function handleSizeChange() {
+  page.value = 1
+  void load()
+}
+
+onMounted(() => {
+  void load()
+})
 </script>
 
 <template>
@@ -48,6 +67,19 @@ onMounted(load)
       <el-table-column prop="source" label="来源" width="90" />
       <el-table-column prop="updatedAt" label="更新时间" min-width="170" />
     </el-table>
+
+    <div class="pager-wrap">
+      <el-pagination
+        v-model:current-page="page"
+        v-model:page-size="pageSize"
+        :total="total"
+        :page-sizes="[10, 20, 50, 100]"
+        layout="total, sizes, prev, pager, next, jumper"
+        background
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+      />
+    </div>
   </el-card>
 </template>
 
@@ -57,5 +89,11 @@ onMounted(load)
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.pager-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
 }
 </style>
