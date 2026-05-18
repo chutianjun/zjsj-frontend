@@ -50,7 +50,7 @@ function notify() {
     <div class="head">
       <h2 class="title">项目造价分析</h2>
       <div class="filters">
-        <el-select v-model="bid" placeholder="招标项目" clearable style="width: 132px" @change="notify">
+        <el-select v-model="bid" placeholder="是否拟招标" clearable style="width: 132px" @change="notify">
           <el-option v-for="o in BID_PROJECT_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
         </el-select>
         <el-select v-model="cost" placeholder="项目造价" clearable style="width: 132px" @change="notify">
@@ -114,7 +114,7 @@ function notify() {
           </el-table-column>
         </el-table>
         <div class="pager">
-          <el-pagination v-model:current-page="phasePage" layout="prev, pager, next" :total="50" :page-size="5" small />
+          <el-pagination v-model:current-page="phasePage" layout="prev, pager, next" :total="50" :page-size="5" size="small" />
         </div>
       </div>
       <div class="right-col">

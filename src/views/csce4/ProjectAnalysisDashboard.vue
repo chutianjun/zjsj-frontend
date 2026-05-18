@@ -30,8 +30,7 @@ import ModuleKeyProjectsTrendDual from './project-analysis-dashboard/components/
 import ModuleBidProjectTable from './project-analysis-dashboard/components/ModuleBidProjectTable.vue'
 import ModuleRegionalSituation from './project-analysis-dashboard/components/ModuleRegionalSituation.vue'
 import ModuleProjectCostAnalysisBoard from './project-analysis-dashboard/components/ModuleProjectCostAnalysisBoard.vue'
-import ModuleProjectCostUnitRankTable from './project-analysis-dashboard/components/ModuleProjectCostUnitRankTable.vue'
-import ModuleProjectCostGroupRankTable from './project-analysis-dashboard/components/ModuleProjectCostGroupRankTable.vue'
+import ModuleCustomerBidProjectSituation from './project-analysis-dashboard/components/ModuleCustomerBidProjectSituation.vue'
 import ModuleEngineeringTypeStatus from './project-analysis-dashboard/components/ModuleEngineeringTypeStatus.vue'
 import ModuleGuangdongGridTable from './project-analysis-dashboard/components/ModuleGuangdongGridTable.vue'
 
@@ -61,6 +60,15 @@ async function reloadTrendCharts(year: string) {
   ])
   keyProjectTrend.value = q
   amountTrend.value = a
+}
+
+async function reloadCostBidSituation() {
+  const [units, groups] = await Promise.all([
+    fetchProjectCostUnitRank(),
+    fetchProjectCostGroupRank(),
+  ])
+  costUnitRows.value = units
+  costGroupRows.value = groups
 }
 
 async function loadAll() {
@@ -146,8 +154,11 @@ onMounted(() => {
           :customers="costBoard.customers"
           @filter-change="() => loadAll()"
         />
-        <ModuleProjectCostUnitRankTable :rows="costUnitRows" @filter-change="() => loadAll()" />
-        <ModuleProjectCostGroupRankTable :rows="costGroupRows" />
+        <ModuleCustomerBidProjectSituation
+          :unit-rows="costUnitRows"
+          :group-rows="costGroupRows"
+          @filter-change="() => reloadCostBidSituation()"
+        />
         <ModuleEngineeringTypeStatus
           v-if="engTypeRows"
           :building="engTypeRows.building"

@@ -1,13 +1,15 @@
+/*
+ * @Author: yang.liu yang.liu@rccchina.com.cn
+ * @Date: 2026-05-18 11:41:00
+ * @LastEditors: yang.liu yang.liu@rccchina.com.cn
+ * @LastEditTime: 2026-05-18 16:23:16
+ */
 /** 仪表盘筛选项常量（后续可对接字典接口） */
 
-export const BID_PROJECT_OPTIONS = [
-  { label: '拟招标项目', value: 'pre_bid' },
-  { label: '已招标项目', value: 'bid' },
-  { label: '招标项目', value: 'all_bid' },
-]
+/** 是否拟招标 — 筛选项（暂仅拟招标项目） */
+export const BID_PROJECT_OPTIONS = [{ label: '拟招标项目', value: 'pre_bid' }]
 
 export const PROJECT_COST_OPTIONS = [
-  { label: '项目造价', value: '' },
   { label: '1亿以下', value: 'lt_1' },
   { label: '1-5亿', value: '1_5' },
   { label: '5-10亿', value: '5_10' },
@@ -27,12 +29,6 @@ export const CUSTOMER_NATURE_OPTIONS = [
   { label: '政府部门', value: 'gov' },
   { label: '国有企业', value: 'soe' },
   { label: '民营企业', value: 'private' },
-]
-
-export const WHETHER_PRE_BID_OPTIONS = [
-  { label: '是否拟招标', value: '' },
-  { label: '是', value: 'yes' },
-  { label: '否', value: 'no' },
 ]
 
 export const REGION_SELECT_OPTIONS = [

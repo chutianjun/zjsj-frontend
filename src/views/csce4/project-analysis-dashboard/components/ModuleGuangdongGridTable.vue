@@ -31,7 +31,7 @@ function notify() {
     <div class="head">
       <h2 class="title">广东省网格化</h2>
       <div class="filters">
-        <el-select v-model="bid" placeholder="招标项目" clearable style="width: 132px" @change="notify">
+        <el-select v-model="bid" placeholder="是否拟招标" clearable style="width: 132px" @change="notify">
           <el-option v-for="o in BID_PROJECT_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
         </el-select>
         <el-select v-model="region" placeholder="省/市/区" clearable style="width: 132px" @change="notify">

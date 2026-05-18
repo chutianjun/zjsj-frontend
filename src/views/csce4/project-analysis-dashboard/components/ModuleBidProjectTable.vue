@@ -24,7 +24,7 @@ function notify() {
 <template>
   <el-card class="dash-card" shadow="never">
     <div class="filters">
-      <el-select v-model="bid" placeholder="拟招标项目" clearable style="width: 140px" @change="notify">
+      <el-select v-model="bid" placeholder="是否拟招标" clearable style="width: 132px" @change="notify">
         <el-option v-for="o in BID_PROJECT_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
       </el-select>
       <el-select v-model="cost" placeholder="项目造价" clearable style="width: 132px" @change="notify">

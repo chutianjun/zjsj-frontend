@@ -4,7 +4,7 @@ import type { EarlyOpportunityModulePayload } from '../types'
 import {
   PROJECT_COST_OPTIONS,
   ENGINEERING_TYPE_OPTIONS,
-  WHETHER_PRE_BID_OPTIONS,
+  BID_PROJECT_OPTIONS,
 } from '../constants'
 import TrendYoyText from './TrendYoyText.vue'
 import DonutCustomerChart from './DonutCustomerChart.vue'
@@ -37,7 +37,7 @@ function notify() {
       <h2 class="title">前期商机分析</h2>
       <div class="filters">
         <el-select v-model="preBid" placeholder="是否拟招标" clearable style="width: 132px" @change="notify">
-          <el-option v-for="o in WHETHER_PRE_BID_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
+          <el-option v-for="o in BID_PROJECT_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
         </el-select>
         <el-select v-model="cost" placeholder="项目造价" clearable style="width: 132px" @change="notify">
           <el-option v-for="o in PROJECT_COST_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
@@ -108,7 +108,7 @@ function notify() {
             layout="prev, pager, next"
             :total="50"
             :page-size="5"
-            small
+            size="small"
           />
         </div>
       </div>

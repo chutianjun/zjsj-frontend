@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { ProjectSituationCard } from '../types'
-import {
-  PROJECT_COST_OPTIONS,
-  ENGINEERING_TYPE_OPTIONS,
-  CUSTOMER_NATURE_OPTIONS,
-} from '../constants'
+import { PROJECT_COST_OPTIONS, CUSTOMER_NATURE_OPTIONS } from '../constants'
+import EngineeringTypeCascader from './EngineeringTypeCascader.vue'
 import TrendYoyText from './TrendYoyText.vue'
 
 defineProps<{
@@ -17,12 +14,22 @@ const emit = defineEmits<{
 }>()
 
 const cost = ref('')
-const engType = ref('')
+/** 工程类型级联路径（dataNo 数组，最多四级） */
+const engTypePath = ref<number[]>([])
 const customer = ref('')
 const dateRange = ref<[Date, Date] | null>(null)
 
 function notify() {
-  emit('filterChange', { cost: cost.value, engType: engType.value, customer: customer.value, dateRange: dateRange.value })
+  const engType = engTypePath.value.length
+    ? engTypePath.value[engTypePath.value.length - 1]
+    : undefined
+  emit('filterChange', {
+    cost: cost.value,
+    engType,
+    engTypePath: engTypePath.value,
+    customer: customer.value,
+    dateRange: dateRange.value,
+  })
 }
 </script>
 
@@ -34,9 +41,7 @@ function notify() {
         <el-select v-model="cost" placeholder="项目造价" clearable style="width: 132px" @change="notify">
           <el-option v-for="o in PROJECT_COST_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
         </el-select>
-        <el-select v-model="engType" placeholder="工程类型" clearable style="width: 132px" @change="notify">
-          <el-option v-for="o in ENGINEERING_TYPE_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
-        </el-select>
+        <EngineeringTypeCascader v-model="engTypePath" width="220px" @change="notify" />
         <el-select v-model="customer" placeholder="客户性质" clearable style="width: 132px" @change="notify">
           <el-option v-for="o in CUSTOMER_NATURE_OPTIONS" :key="String(o.value)" :label="o.label" :value="o.value" />
         </el-select>
@@ -124,8 +129,7 @@ function notify() {
 .cell {
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 22px;
-  min-height: 120px;
+  padding: 12px 16px;
   border-right: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;
   background: #fff;
@@ -171,22 +175,18 @@ function notify() {
 }
 .metrics-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
+  gap: 6px 12px;
+  margin-top: 10px;
   font-size: 13px;
 }
 .metric-side {
   display: flex;
   align-items: center;
-  gap: 6px;
+  flex: 1 1 auto;
   flex-wrap: wrap;
-  min-width: 0;
-}
-.metric-side--end {
-  justify-content: flex-end;
-  text-align: right;
+  gap: 4px;
 }
 .muted {
   color: #8c8c8c;
