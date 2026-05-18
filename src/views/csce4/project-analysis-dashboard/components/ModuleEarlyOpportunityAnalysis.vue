@@ -148,15 +148,15 @@ function notify() {
   border-color: #f0f0f0;
 }
 .body-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  align-items: start;
+  align-items: flex-start;
 }
-@media (max-width: 1200px) {
-  .body-grid {
-    grid-template-columns: 1fr;
-  }
+.left-col,
+.right-col {
+  flex: 1 1 0;
+  min-width: min(100%, 520px);
 }
 .summary-row {
   display: grid;
@@ -193,7 +193,7 @@ function notify() {
 }
 .pager {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 12px;
 }
 </style>

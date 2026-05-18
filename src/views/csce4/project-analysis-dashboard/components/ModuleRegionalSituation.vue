@@ -205,15 +205,15 @@ watch(
   border-color: #f0f0f0;
 }
 .split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  align-items: start;
+  align-items: flex-start;
 }
-@media (max-width: 1100px) {
-  .split {
-    grid-template-columns: 1fr;
-  }
+.map-side,
+.table-side {
+  flex: 1 1 0;
+  min-width: min(100%, 520px);
 }
 .map-side {
   min-height: 420px;
@@ -232,9 +232,6 @@ watch(
   height: 420px;
   color: #8c8c8c;
   font-size: 14px;
-}
-.table-side {
-  min-width: 0;
 }
 .tbl-actions {
   margin-bottom: 10px;

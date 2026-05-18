@@ -133,7 +133,7 @@ function notify() {
 .cell-top {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 .cell:nth-child(3n) {
   border-right: none;
@@ -175,7 +175,6 @@ function notify() {
   justify-content: space-between;
   gap: 12px;
   margin-top: 14px;
-  padding-left: 48px;
   font-size: 13px;
 }
 .metric-side {
